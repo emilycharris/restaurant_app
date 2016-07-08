@@ -1,1 +1,11 @@
 {% extends "base.html" %}
+{% block content %}
+{% if request.user.is_authenticated %}
+
+{% else %}
+<br>
+<br>
+<h1 class="red-text text-accent-2"><em>Welcome!</em></h1><h4 class="red-text text-accent-2"><em>Please sign in or create account using links above</em></h4>
+{% endif %}
+
+{% endblock %}
