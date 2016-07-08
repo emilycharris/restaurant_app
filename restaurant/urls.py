@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from app.views import IndexView, CreateUserView, ProfileUpdateView, CreateMenuItemView, UpdateMenuItemView
+from app.views import IndexView, CreateUserView, ProfileUpdateView, MenuItemCreateView, MenuItemListView, MenuItemUpdateView
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
@@ -24,8 +24,9 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index_view'),
     url(r'^create_user/$', CreateUserView.as_view(), name='create_user_view'),
     url(r'^accounts/profile/$', login_required(ProfileUpdateView.as_view()), name="profile_update_view"),
-    url(r'^create_menu_item/$', login_required(CreateMenuItemView.as_view()), name='create_menu_item_view'),
-    url(r'^update_menu_item/(?P<pk>\d+)/$', login_required(UpdateMenuItemView.as_view()), name='update_menu_item_view'),
+    url(r'^menu_item_create/$', login_required(MenuItemCreateView.as_view()), name='menu_item_create_view'),
+    url(r'^menu_item_list/$', login_required(MenuItemListView.as_view()), name='menu_item_list_view'),
+    url(r'^update_menu_item/(?P<pk>\d+)/$', login_required(MenuItemUpdateView.as_view()), name='menu_item_update_view'),
 
 
 ]

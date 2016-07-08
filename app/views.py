@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView, UpdateView, ListView
 from django.contrib.auth.models import User
 from app.models import Profile, Order, Menu
 from django.contrib.auth.forms import UserCreationForm
@@ -21,17 +21,20 @@ class CreateUserView(CreateView):
 class ProfileUpdateView(UpdateView):
     model = Profile
     fields = ['position']
-    success_url = reverse_lazy('index_view') #change reverse_lazy
+    success_url = reverse_lazy('profile_update_view') #change reverse_lazy
 
     def get_object(self, queryset=None):
         return self.request.user.profile
 
-class CreateMenuItemView(CreateView):
+class MenuItemCreateView(CreateView):
     model = Menu
     fields = ['item', 'description', 'category', 'price', 'photo']
     success_url = reverse_lazy('profile_update_view')
 
-class UpdateMenuItemView(UpdateView):
+class MenuItemListView(ListView):
+    model = Menu
+
+class MenuItemUpdateView(UpdateView):
     model = Menu
     fields = ['item', 'description', 'category', 'price', 'photo']
     success_url = reverse_lazy('profile_update_view')

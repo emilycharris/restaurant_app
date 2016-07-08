@@ -1,21 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 {% if request.user.is_authenticated %}
-{% if profile.position.id = 3 %}
-<h6><em>{{profile.position}}</em></h6>
-<br>
-<a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'create_menu_item_view' %}">Create Menu Item</a>
-<a class="waves-effect waves-light red accent-2 btn-large" href="">Update/Delete Menu Items</a>
-
-{% endif %}
-{% if profile.position.id = 2 %}Cook
-List of Requests
-{% endif %}
-{% if profile.position.id = 1 %}Server
-Create Order / Mark Table as Paid{% endif %}
 
 
-{% endif %}
+
+
 {% else %}
 <br>
 <br>
