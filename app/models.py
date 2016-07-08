@@ -15,7 +15,7 @@ class Position(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField('auth.User')
-    position = models.ForeignKey(Position, default=1)
+    position = models.ForeignKey(Position, null=True, blank=True)
 
 class Category(models.Model):
     category = models.CharField(max_length=50)
@@ -29,7 +29,6 @@ class Menu(models.Model):
     category = models.ForeignKey(Category)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     photo = models.ImageField(upload_to="item_photos", null=True, blank=True)
-
 
 class Order(models.Model):
     guest_number = models.IntegerField()

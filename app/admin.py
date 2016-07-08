@@ -15,7 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'position']
 
 class PositionAdmin(admin.ModelAdmin):
-    list_display = ['position']
+    list_display = ['id', 'position']
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['category']

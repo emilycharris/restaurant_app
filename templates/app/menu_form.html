@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
+    </button>
+  </form>
+{% endblock %}

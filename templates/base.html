@@ -6,31 +6,31 @@
     <meta charset="utf-8">
     <title>Emily's Cafe</title>
     <link rel="stylesheet" href='{% static "app/materialize/css/materialize.css" %}' media="screen" charset="utf-8">
-    <link rel="stylesheet" href="app/main.css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="{% static "app/main.css" %}" media="screen" charset="utf-8">
   </head>
   <body>
+    <div class="container">
+    <nav>
+        <div class="nav-wrapper indigo">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if request.user.is_authenticated %}
+              <li><a href="{% url 'index_view' %}">Home</a></li>
+              <li><a href="{% url 'logout' %}?next={% url 'login' %}">Logout as {{user}}</a></li>
+            {% else %}
+              <li><a href="{% url 'index_view' %}">Home</a></li>
+              <li><a href="{% url 'create_user_view' %}">Create An Account</a></li>
+              <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+          </ul>
+        </div>
+
+  </nav>
+</div>
 
     <div class="container">
-      <nav>
-    <div class="nav-wrapper indigo">
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        {% if request.user.is_authenticated %}
-          <li><a href="{% url 'index_view' %}">Home</a></li>
-          <li><a href="{% url 'logout' %}?next={% url 'login' %}">Logout as {{user}}</a></li>
-        {% else %}
-          <li><a href="{% url 'index_view' %}">Home</a></li>
-          <li><a href="{% url 'create_user_view' %}">Create An Account</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </nav>
-  <h2>Emily's Cafe</h2><hr>
 
-
-
-
-
+  <h2>Emily's Cafe</h2>
+  <hr>
 
            {% block content %}
 
@@ -38,6 +38,8 @@
 
            {% endblock %}
     </div>
-
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <script type="text/javascript" src="{% static "app/materialize/js/materialize.js" %}"></script>
+     <script type="text/javascript" src="{% static "app/main.js" %}"></script>
   </body>
 </html>

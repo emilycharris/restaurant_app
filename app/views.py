@@ -25,3 +25,17 @@ class ProfileUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+class CreateMenuItemView(CreateView):
+    model = Menu
+    fields = ['item', 'description', 'category', 'price', 'photo']
+    success_url = reverse_lazy('profile_update_view')
+
+class UpdateMenuItemView(UpdateView):
+    model = Menu
+    fields = ['item', 'description', 'category', 'price', 'photo']
+    success_url = reverse_lazy('profile_update_view')
+
+    def get_queryset(self, **kwargs):
+        item_id = self.kwargs.get('pk')
+        return Menu.objects.filter(id=item_id)
