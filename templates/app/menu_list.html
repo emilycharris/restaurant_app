@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'menu_item_create_view' %}">Create New Menu Item</a>
+
+{% for object in object_list %}
+<ul class="collection">
+<table>
+  <tr>
+<td>
+  <li class="collection-item"><a href="{% url 'menu_item_detail_view' object.pk %}">{{object.item}}</a></li>
+</td>
+<td style='float:right'>
+  <a href="{% url 'menu_item_update_view' object.pk %}">edit</a> / <a href="{% url 'menu_item_delete_view' object.pk %}">delete</a>
+
+</td>
+  </tr>
+</table>
+
+</ul>
+
+{% endfor %}
+
+
+
+{% endblock %}

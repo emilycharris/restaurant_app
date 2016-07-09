@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, UpdateView, ListView
+from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.contrib.auth.models import User
 from app.models import Profile, Order, Menu
 from django.contrib.auth.forms import UserCreationForm
@@ -21,7 +21,7 @@ class CreateUserView(CreateView):
 class ProfileUpdateView(UpdateView):
     model = Profile
     fields = ['position']
-    success_url = reverse_lazy('profile_update_view') #change reverse_lazy
+    success_url = reverse_lazy('profile_update_view')
 
     def get_object(self, queryset=None):
         return self.request.user.profile
@@ -33,6 +33,19 @@ class MenuItemCreateView(CreateView):
 
 class MenuItemListView(ListView):
     model = Menu
+    template_name = 'app/menu_list.html'
+
+    def get_queryset(self):
+        return Menu.objects.all().order_by('category')
+
+
+class MenuItemDetailView(DetailView):
+    model = Menu
+
+    def get_queryset(self, **kwargs):
+        item_id = self.kwargs.get('pk')
+        return Menu.objects.filter(id=item_id)
+
 
 class MenuItemUpdateView(UpdateView):
     model = Menu
@@ -42,3 +55,14 @@ class MenuItemUpdateView(UpdateView):
     def get_queryset(self, **kwargs):
         item_id = self.kwargs.get('pk')
         return Menu.objects.filter(id=item_id)
+
+class MenuItemDeleteView(DeleteView):
+    success_url = reverse_lazy("menu_item_list_view")
+    def get_queryset(self):
+        return Menu.objects.all()
+
+
+class OrderCreateView(CreateView):
+    model = Order
+    fields = ['guest_number', 'item', 'quantity', 'notes']
+    success_url = reverse_lazy('index_view')

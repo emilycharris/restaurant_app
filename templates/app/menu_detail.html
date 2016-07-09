@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<img src="{{object.photo_url}}" alt="" />
+
+<h1>{{object.item}}</h1>
+<h3>${{object.price}}</h3>
+<p>
+  {{object.description}}
+</p>
+
+<p>
+  {{object.category}}
+</p>
+<a href="javascript:history.go(-1)">Return to Search</a>
+
+
+{% endblock %}

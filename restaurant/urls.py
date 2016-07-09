@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from app.views import IndexView, CreateUserView, ProfileUpdateView, MenuItemCreateView, MenuItemListView, MenuItemUpdateView
+from app.views import (IndexView, CreateUserView, ProfileUpdateView, MenuItemCreateView,
+MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView, OrderCreateView)
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
@@ -26,7 +27,9 @@ urlpatterns = [
     url(r'^accounts/profile/$', login_required(ProfileUpdateView.as_view()), name="profile_update_view"),
     url(r'^menu_item_create/$', login_required(MenuItemCreateView.as_view()), name='menu_item_create_view'),
     url(r'^menu_item_list/$', login_required(MenuItemListView.as_view()), name='menu_item_list_view'),
+    url(r'^menu_item_detail/(?P<pk>\d+)/$', login_required(MenuItemDetailView.as_view()), name='menu_item_detail_view'),
     url(r'^update_menu_item/(?P<pk>\d+)/$', login_required(MenuItemUpdateView.as_view()), name='menu_item_update_view'),
-
+    url(r'^delete_menu_item/(?P<pk>\d+)/$', login_required(MenuItemDeleteView.as_view()), name='menu_item_delete_view'),
+    url(r'^order_create/$', login_required(OrderCreateView.as_view()), name='order_create_view'),
 
 ]
