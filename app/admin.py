@@ -9,7 +9,7 @@ class MenuAdmin(admin.ModelAdmin):
     list_display = ["item", "description", "category", "price"]
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['item', 'quantity', 'notes', 'fulfilled', 'paid']
+    list_display = ['server', 'item', 'quantity', 'notes', 'fulfilled', 'paid']
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'position']

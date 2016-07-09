@@ -30,6 +30,9 @@ class Menu(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     photo = models.ImageField(upload_to="item_photos", null=True, blank=True)
 
+    def __str__(self):
+        return self.item
+
     @property
     def photo_url(self):
         if self.photo:
@@ -37,7 +40,6 @@ class Menu(models.Model):
 
 class Order(models.Model):
     server = models.ForeignKey('auth.User')
-    guest_number = models.IntegerField()
     item = models.ForeignKey(Menu)
     quantity = models.PositiveSmallIntegerField()
     notes = models.TextField()
@@ -45,6 +47,7 @@ class Order(models.Model):
     fulfilled = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
 
+    
 @receiver(post_save, sender='auth.User')
 def create_user_profile(**kwargs):
     created = kwargs.get("created")

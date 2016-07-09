@@ -1,13 +1,17 @@
-# class UserCreateForm(UserCreationForm):
-#     position = forms.ForeignKey(Position)
-#
-#     class Meta:
-#         model = User
-#         fields = ("username", "position", "password1", "password2")
-#
-#     def save(self, commit=True):
-#         user = super(UserCreateForm, self).save(commit=False)
-#         user.position = self.cleaned_data["position"]
-#         if commit:
-#             user.save()
-#         return user
+from django.forms import ModelForm
+from django.forms.models import inlineformset_factory
+
+from .models import Order, Menu
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = Order
+        fields = ['item', 'quantity', 'notes']
+
+class ItemForm(ModelForm):
+    class Meta:
+        model = Menu
+        fields = ['item']
+
+
+ItemFormSet = inlineformset_factory(Menu, Order, form=OrderForm)

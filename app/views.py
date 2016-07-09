@@ -4,9 +4,11 @@ from django.contrib.auth.models import User
 from app.models import Profile, Order, Menu
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy
-
-
-
+from django.http import HttpResponseRedirect
+from .forms import ItemFormSet, OrderForm
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from django.core.urlresolvers import reverse
 
 # Create your views here.
 
@@ -63,6 +65,25 @@ class MenuItemDeleteView(DeleteView):
 
 
 class OrderCreateView(CreateView):
-    model = Order
-    fields = ['guest_number', 'item', 'quantity', 'notes']
-    success_url = reverse_lazy('index_view')
+    template_name = 'app/order_form.html'
+    form_class = OrderForm
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderCreateView, self).get_context_data(**kwargs)
+        if self.request.POST:
+            context['formset'] = ItemFormSet(self.request.POST)
+        else:
+            context['formset'] = ItemFormSet()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        formset = context['formset']
+        if formset.is_valid():
+            self.object = form.save()
+            formset.instance = self.object
+            forset.server = self.request.user
+            formset.save()
+            return redirect ("index_view")
+        else:
+            return self.render_to_response(self.get_context_data(form=form))
