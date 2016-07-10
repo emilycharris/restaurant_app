@@ -112,4 +112,13 @@ class OrderListView(ListView):
     template_name = 'app/order_list.html'
 
     def get_queryset(self):
-        return Order.objects.all().order_by('-created')
+        return Order.objects.filter(fulfilled=False).order_by('-created')
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'app/order_detail.html'
+
+
+    def get_queryset(self, **kwargs):
+        order_id = self.kwargs.get('pk')
+        return Menu.objects.filter(id=order_id)

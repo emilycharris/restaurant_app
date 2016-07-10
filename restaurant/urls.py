@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from app.views import (IndexView, CreateUserView, ProfileUpdateView, MenuItemCreateView,
-MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView, OrderCreateView, OrderListView)
+MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView, OrderCreateView, OrderListView, OrderDetailView)
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
@@ -32,5 +32,7 @@ urlpatterns = [
     url(r'^delete_menu_item/(?P<pk>\d+)/$', login_required(MenuItemDeleteView.as_view()), name='menu_item_delete_view'),
     url(r'^order_create/$', login_required(OrderCreateView.as_view()), name='order_create_view'),
     url(r'^order_list', login_required(OrderListView.as_view()), name='order_list_view'),
+    url(r'^order_detail/(?P<pk>\d+)/$', login_required(OrderDetailView.as_view()), name='order_detail_view'),
+
 
 ]

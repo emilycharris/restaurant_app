@@ -6,7 +6,7 @@
 <table>
   <tr>
 <td>
-  Order # {{object.id}}
+  <a href="{% url 'order_detail_view' object.pk %}">Order # {{object.id}}</a>
   <div>
     <small><em>Server: {{object.server}}</em></small>
   </div>
@@ -20,10 +20,10 @@
 </td>
 
 <td>
-  <form action="#">
+  <form action="#" style='float:right'>
     <p>
       <input type="checkbox" id="test5" />
-      <label for="test5">Red</label>
+      <label for="test5">Complete</label>
     </p>
     </form>
 </td>
