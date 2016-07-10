@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for object in object_list %}
+<ul class="collection">
+<table>
+  <tr>
+<td>
+  Order # {{object.id}}
+  <div>
+    <small><em>Server: {{object.server}}</em></small>
+  </div>
+  <div>
+    <small><em>Timestamp: {{object.created}}</em></small>
+  </div>
+</td>
+
+<td>
+  <li style='float:right'>{{object.item}} ({{object.quantity}})</li>
+</td>
+
+<td>
+  <form action="#">
+    <p>
+      <input type="checkbox" id="test5" />
+      <label for="test5">Red</label>
+    </p>
+    </form>
+</td>
+
+  </tr>
+</table>
+</ul>
+
+{% endfor %}
+
+
+{% endblock %}

@@ -5,10 +5,12 @@ from app.models import Profile, Order, Menu
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
-from .forms import ItemFormSet, OrderForm
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
+from app.forms import OrderForm, ItemFormSet
+from extra_views import InlineFormSet, CreateWithInlinesView, UpdateWithInlinesView
+from extra_views.generic import GenericInlineFormSet
 
 # Create your views here.
 
@@ -68,7 +70,6 @@ class MenuItemDeleteView(DeleteView):
     def get_queryset(self):
         return Menu.objects.all()
 
-
 class OrderCreateView(CreateView):
     template_name = 'app/order_form.html'
     model = Order
@@ -105,3 +106,10 @@ class OrderCreateView(CreateView):
     def form_invalid(self, form, item_form):
         return self.render_to_response(
             self.get_context_data(form=form, item_form=item_form))
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'app/order_list.html'
+
+    def get_queryset(self):
+        return Order.objects.all().order_by('-created')
