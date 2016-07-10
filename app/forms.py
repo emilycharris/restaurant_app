@@ -8,4 +8,4 @@ class OrderForm(ModelForm):
         model = Order
         fields = ['id', 'item', 'quantity', 'notes']
 
-ItemFormSet = modelformset_factory(Order, form=OrderForm)
+ItemFormSet = modelformset_factory(Order, form=OrderForm, extra=2)

@@ -71,24 +71,37 @@ class MenuItemDeleteView(DeleteView):
 
 class OrderCreateView(CreateView):
     template_name = 'app/order_form.html'
+    model = Order
     form_class = OrderForm
+    success_url = reverse_lazy('profile_update_view')
 
-    def get_context_data(self, **kwargs):
-        context = super(OrderCreateView, self).get_context_data(**kwargs)
-        if self.request.POST:
-            context['formset'] = ItemFormSet(self.request.POST)
-        else:
-            context['formset'] = ItemFormSet()
-        return context
+    def get(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        print(form_class)
+        form = self.get_form(form_class)
+        item_form = ItemFormSet()
+        return self.render_to_response(
+            self.get_context_data(form=form, item_form=item_form))
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        formset = context['formset']
-        if formset.is_valid():
-            self.object = form.save()
-            formset.instance = self.object
-            forset.server = self.request.user
-            formset.save()
-            return redirect ("index_view")
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        item_form = ItemFormSet(self.request.POST)
+        if (form.is_valid() and item_form.is_valid()):
+            print('valid')
+            return self.form_valid(form, item_form)
         else:
-            return self.render_to_response(self.get_context_data(form=form))
+            print('invalid')
+            return self.form_invalid(form, item_form)
+
+    def form_valid(self, form, item_form):
+        self.object = form.save(commit=False)
+        item_form.instance = self.object
+        item_form.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form, item_form):
+        return self.render_to_response(
+            self.get_context_data(form=form, item_form=item_form))

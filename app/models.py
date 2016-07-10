@@ -43,7 +43,7 @@ class Order(models.Model):
     server = models.ForeignKey('auth.User')
     item = models.ForeignKey(Menu)
     quantity = models.PositiveSmallIntegerField()
-    notes = models.CharField(max_length=50)
+    notes = models.CharField(max_length=50, blank=True)
     created = created = models.DateTimeField(auto_now_add=True)
     fulfilled = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)

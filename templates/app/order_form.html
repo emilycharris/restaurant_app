@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h5>Order Number: {{formset.instance}}</h5>
 <form method="post" action="">
 
+{% csrf_token %}
   <table class="responsive-table">
   <thead>
     <tr>
@@ -12,7 +12,9 @@
 
     </tr>
   </thead>
-{% for form in formset %}
+{{ item_form.management_form }}
+
+{% for form in item_form %}
   <tbody>
     <tr>
       <td>{{form.item}}</td>
@@ -22,8 +24,7 @@
   </tbody>
   {% endfor %}
 </table>
-<button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
-</button>
+<button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit</button>
 </form>
 
 
