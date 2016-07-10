@@ -12,7 +12,10 @@
     <div class="container">
     <nav>
         <div class="nav-wrapper indigo">
+          <a href="" class="brand-logo"><h3>Emily's Cafe</h3></a>
+
           <ul id="nav-mobile" class="right hide-on-med-and-down">
+
             {% if request.user.is_authenticated %}
               <li><a href="{% url 'index_view' %}">Home</a></li>
               <li><a href="{% url 'logout' %}?next={% url 'login' %}">Logout as {{user}}</a></li>
@@ -29,7 +32,6 @@
 
     <div class="container">
 
-  <h2>Emily's Cafe</h2>
   <hr>
 
            {% block content %}

@@ -42,12 +42,12 @@ class Order(models.Model):
     server = models.ForeignKey('auth.User')
     item = models.ForeignKey(Menu)
     quantity = models.PositiveSmallIntegerField()
-    notes = models.TextField()
+    notes = models.CharField(max_length=50)
     created = created = models.DateTimeField(auto_now_add=True)
     fulfilled = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
 
-    
+
 @receiver(post_save, sender='auth.User')
 def create_user_profile(**kwargs):
     created = kwargs.get("created")

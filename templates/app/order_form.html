@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-<form class="form-horizontal form-inline" method="post" >
-  {% csrf_token %}
-  {{ form.as_table }}
-  {{ formset.management_form }}
-  <legend>Items</legend>
-  <div class="books">
-    {{formset}}
-  {% for item_form in formset %}
-    <div id="item-{{ forloop.counter0 }}">
-      {{ item_form }}
-    </div>
+<h5>Order Number: {{formset.id}}</h5>
+<form method="post" action="">
+
+  <table class="responsive-table">
+  <thead>
+    <tr>
+        <th data-field="name">Item</th>
+        <th data-field="quantity">Quantity</th>
+        <th data-field="notes">Notes</th>
+
+    </tr>
+  </thead>
+{% for form in formset %}
+  <tbody>
+    <tr>
+      <td>{{form.item}}</td>
+      <td>{{form.quantity}}</td>
+      <td>{{form.notes}}</td>
+    </tr>
+  </tbody>
   {% endfor %}
- </div>
- <div class="form-actions">
-   <a href="#" class="btn btn-info add-book">Add Items</a>
-   <button type="submit" class="btn btn-primary">Create Order</button>
- </div>
+</table>
+<button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
+</button>
 </form>
 
-<script type="text/html" id="book-template">
-  <div id="book-<%= id %>">
-    <label for="id_books-<%= id %>-title">Book Title:</label>
-    <input id="id_books-<%= id %>-title" type="text" name="books-<%= id %>-title" maxlength="100">
-    <input type="hidden" name="books-<%= id %>-author" id="id_books-<%= id %>-author">
-    <input type="hidden" name="books-<%= id %>-id" id="id_books-<%= id %>-id">
-  </div>
-</script>
+
 {% endblock %}
