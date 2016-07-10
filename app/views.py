@@ -33,6 +33,11 @@ class MenuItemCreateView(CreateView):
     fields = ['item', 'description', 'category', 'price', 'photo']
     success_url = reverse_lazy('profile_update_view')
 
+    def form_valid(self, form):
+        item = form.save(commit=False)
+        item.user = self.request.user
+        return super().form_valid(form)
+
 class MenuItemListView(ListView):
     model = Menu
     template_name = 'app/menu_list.html'

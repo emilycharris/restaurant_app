@@ -24,6 +24,7 @@ class Category(models.Model):
         return self.category
 
 class Menu(models.Model):
+    user = models.ForeignKey('auth.User')
     item = models.CharField(max_length=50)
     description = models.TextField()
     category = models.ForeignKey(Category)

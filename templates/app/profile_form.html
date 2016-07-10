@@ -19,8 +19,6 @@
 {% else %}
 
 {% if profile.position.id = 3 %}
-<h6><em>{{profile.position}}</em></h6>
-<br>
 <a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'menu_item_create_view' %}">Create Menu Item</a>
 <a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'menu_item_list_view' %}">List Menu Items</a>
 

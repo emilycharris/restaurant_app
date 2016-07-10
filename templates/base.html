@@ -12,12 +12,12 @@
     <div class="container">
     <nav>
         <div class="nav-wrapper indigo">
-          <a href="" class="brand-logo"><h3>Emily's Cafe</h3></a>
+          <a href="" class="brand-logo"><h4>Emily's Cafe</h4></a>
 
           <ul id="nav-mobile" class="right hide-on-med-and-down">
 
             {% if request.user.is_authenticated %}
-              <li><a href="{% url 'index_view' %}">Home</a></li>
+              <li><a href="{% url 'profile_update_view' %}">Home</a></li>
               <li><a href="{% url 'logout' %}?next={% url 'login' %}">Logout as {{user}}</a></li>
             {% else %}
               <li><a href="{% url 'index_view' %}">Home</a></li>
@@ -31,6 +31,8 @@
 </div>
 
     <div class="container">
+      <br>
+      <h6><em>{{user.profile.position}}</em></h6>
 
   <hr>
 

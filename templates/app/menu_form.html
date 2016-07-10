@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
+{% if user.profile.position.id = 3 %}
   <form class="" action="" method="post">
     {% csrf_token %}
+    {{self.request.user}}
+
     {{form.as_p}}
     <button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
     </button>
   </form>
+  {% endif %}
 {% endblock %}
