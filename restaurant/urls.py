@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from app.views import (IndexView, CreateUserView, ProfileUpdateView, MenuItemCreateView,
-MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView, OrderCreateView, OrderListView, OrderDetailView)
+MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView,
+OrderCreateView, OrderListView, OrderDetailView)
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [

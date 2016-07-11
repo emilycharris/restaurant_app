@@ -14,10 +14,12 @@
     <small><em>Timestamp: {{object.created}}</em></small>
   </div>
 </td>
-
+{% for item in formset %}
 <td>
-  <li style='float:right'>{{object.item}} ({{object.quantity}})</li>
+  <li style='float:right'>{{item.item}} ({{item.quantity}})</li>
 </td>
+
+{% endfor %}
 
 <td>
   <form action="#" style='float:right'>

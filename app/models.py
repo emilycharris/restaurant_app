@@ -41,13 +41,21 @@ class Menu(models.Model):
 
 class Order(models.Model):
     server = models.ForeignKey('auth.User')
-    item = models.ForeignKey(Menu, blank=True, null=True)
-    quantity = models.PositiveSmallIntegerField(blank=True, null=True)
-    notes = models.CharField(max_length=50, blank=True)
     created = created = models.DateTimeField(auto_now_add=True)
     fulfilled = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
 
+    def __str__(self):
+        return str(self.id)
+
+class Items(models.Model):
+    order_id = models.ForeignKey(Order)
+    item = models.ForeignKey(Menu, blank=True, null=True)
+    quantity = models.PositiveSmallIntegerField(blank=True, null=True)
+    notes = models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return str(self.order_id)
 
 @receiver(post_save, sender='auth.User')
 def create_user_profile(**kwargs):

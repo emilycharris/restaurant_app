@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.contrib.auth.models import User
-from app.models import Profile, Order, Menu
+from app.models import Profile, Order, Menu, Items
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
-from app.forms import OrderForm, ItemFormSet
 from extra_views import InlineFormSet, CreateWithInlinesView, UpdateWithInlinesView
 from extra_views.generic import GenericInlineFormSet
 
@@ -70,42 +69,30 @@ class MenuItemDeleteView(DeleteView):
     def get_queryset(self):
         return Menu.objects.all()
 
-class OrderCreateView(CreateView):
-    template_name = 'app/order_form.html'
+class ListItemCreateView(CreateView):
+        pass
+
+class ItemInlineView(InlineFormSet):
+    model = Items
+    fields = ['item', 'quantity', 'notes']
+
+
+class OrderCreateView(CreateWithInlinesView):
     model = Order
-    form_class = OrderForm
-    success_url = reverse_lazy('profile_update_view')
+    inlines = [ItemInlineView]
+    fields = ['paid', 'fulfilled']
+    extra = 3
 
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        print(form_class)
-        form = self.get_form(form_class)
-        item_form = ItemFormSet()
-        return self.render_to_response(
-            self.get_context_data(form=form, item_form=item_form))
+    def forms_valid(self, form, inlines):
+        form = form.save(commit=False)
+        form.server = self.request.user
+        form.save()
+        for formset in inlines:
+            formset.save()
+        return HttpResponseRedirect(reverse_lazy('profile_update_view'))
 
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        item_form = ItemFormSet(self.request.POST)
-        if (form.is_valid() and item_form.is_valid()):
-            print('valid')
-            return self.form_valid(form, item_form)
-        else:
-            print('invalid')
-            return self.form_invalid(form, item_form)
+#django-extra-views https://github.com/AndrewIngram/django-extra-views/
 
-    def form_valid(self, form, item_form):
-        self.object = form.save(commit=False)
-        item_form.instance = self.object
-        item_form.save()
-        return HttpResponseRedirect(self.get_success_url())
-
-    def form_invalid(self, form, item_form):
-        return self.render_to_response(
-            self.get_context_data(form=form, item_form=item_form))
 
 class OrderListView(ListView):
     model = Order
@@ -114,11 +101,11 @@ class OrderListView(ListView):
     def get_queryset(self):
         return Order.objects.filter(fulfilled=False).order_by('-created')
 
+
 class OrderDetailView(DetailView):
     model = Order
     template_name = 'app/order_detail.html'
 
-
     def get_queryset(self, **kwargs):
         order_id = self.kwargs.get('pk')
-        return Menu.objects.filter(id=order_id)
+        return Order.objects.filter(id=order_id)
