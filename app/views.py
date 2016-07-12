@@ -66,6 +66,7 @@ class MenuItemUpdateView(UpdateView):
 
 class MenuItemDeleteView(DeleteView):
     success_url = reverse_lazy("menu_item_list_view")
+
     def get_queryset(self):
         return Menu.objects.all()
 
@@ -101,11 +102,19 @@ class OrderListView(ListView):
     def get_queryset(self):
         return Order.objects.filter(fulfilled=False).order_by('-created')
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['items'] = Items.objects.all()
+    #     return context
 
-class OrderDetailView(DetailView):
-    model = Order
+
+
+class OrderDetailView(ListView):
+    model = Items
     template_name = 'app/order_detail.html'
 
     def get_queryset(self, **kwargs):
         order_id = self.kwargs.get('pk')
-        return Order.objects.filter(id=order_id)
+        print(order_id)
+        print(Items.objects.filter(order_id=order_id))
+        return Items.objects.filter(order_id=order_id)

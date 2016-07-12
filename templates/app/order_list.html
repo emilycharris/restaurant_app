@@ -14,21 +14,15 @@
     <small><em>Timestamp: {{object.created}}</em></small>
   </div>
 </td>
-{% for item in formset %}
-<td>
-  <li style='float:right'>{{item.item}} ({{item.quantity}})</li>
-</td>
 
-{% endfor %}
-
-<td>
-  <form action="#" style='float:right'>
-    <p>
-      <input type="checkbox" id="test5" />
-      <label for="test5">Complete</label>
-    </p>
-    </form>
-</td>
+    <td>
+      <form action="#" style='float:right'>
+        <p>
+          <input type="checkbox" id="test5" />
+          <label for="test5">Complete</label>
+        </p>
+        </form>
+    </td>
 
   </tr>
 </table>

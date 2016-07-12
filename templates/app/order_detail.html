@@ -8,28 +8,22 @@
     <th>Quantity</th>
     <th>Notes</th>
   </tr>
-  <tr>
-    <td>{{object.item}}</td>
-    <td>{{object.quantity}}</td>
-    <td>{{object.notes}}</td>
-  </tr>
-</table>
-{% endif %}
 
-{% if user.profile.position.id = 1 %}
-<table>
-  <tr>
-    <th>Item</th>
-    <th>Quantity</th>
-    <th>Price</th>
-    <th>Extended Price</th>
-  </tr>
-  <tr>
-    <td>{{object.item}}</td>
-    <td>{{object.quantity}}</td>
-    <td>{{object.price}}</td>
-  </tr>
+
+{% for object in object_list %}
+<tr>
+  <td>{{object.item}}</td>
+  <td>{{object.quantity}}</td>
+  <td>{{object.notes}}</td>
+
+</tr>
+
+{% endfor %}
+
+
+
 </table>
+
 {% endif %}
 
 <a href="javascript:history.go(-1)">Back to List</a>
