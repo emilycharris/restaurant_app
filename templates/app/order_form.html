@@ -1,15 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
 {% if user.profile.position.id = 1 %}
-  <form class="" action="" method="post">
+  <form class="form-inline" action="" method="post">
     {% csrf_token %}
-
-
+     {{ formset.management_form }}
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+    <th>Notes</th>
+  </tr>
+  <tr>
     {% for line in inlines %}
-    {{line.as_table}}
-    {% endfor %}
-    {{form.as_table}}
+    <td>{{line.form.item}}</td>
+    <td>{{line.form.quantity}}</td>
+    <td>{{line.form.notes}}</td>
+  </tr>
 
+  <tr>
+    <td>{{line.form.item}}</td>
+    <td>{{line.form.quantity}}</td>
+    <td>{{line.form.notes}}</td>
+  </tr>
+
+  <tr>
+    <td>{{line.form.item}}</td>
+    <td>{{line.form.quantity}}</td>
+    <td>{{line.form.notes}}</td>
+  </tr>
+
+    {% endfor %}
+</table>
+
+
+    {{form.as_p}}
+<br>
     <button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
     </button>
   </form>
