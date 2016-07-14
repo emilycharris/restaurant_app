@@ -12,14 +12,12 @@
   {% for formset in inlines %}
 
   <tr>
-    {{formset}}
+    {{formset.as_table}}
   </tr>
 
     {% endfor %}
 </table>
-
-
-    {{form.as_p}}
+    {{form.as_table}}
 <br>
     <button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
     </button>
