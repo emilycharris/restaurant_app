@@ -9,8 +9,15 @@ class MenuAdmin(admin.ModelAdmin):
 class ItemsAdmin(admin.ModelAdmin):
     list_display = ['order_id', 'item', 'quantity', 'notes']
 
+class ItemsInline(admin.StackedInline):
+    model = Items
+
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'server', 'fulfilled', 'paid']
+    inlines = (ItemsInline,)
+
+    def get_inline_instances(self, request, obj=None):
+        return [inline(self.model, self.admin_site) for inline in self.inlines]
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'position']

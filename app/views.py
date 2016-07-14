@@ -82,13 +82,13 @@ class OrderCreateView(CreateWithInlinesView):
     model = Order
     inlines = [ItemInlineView]
     fields = ['paid', 'fulfilled']
-    extra = 3
 
     def forms_valid(self, form, inlines):
         form = form.save(commit=False)
         form.server = self.request.user
         form.save()
         for formset in inlines:
+            print(formset.instance)
             formset.save()
         return HttpResponseRedirect(reverse_lazy('profile_update_view'))
 
