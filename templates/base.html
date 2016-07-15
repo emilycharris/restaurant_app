@@ -34,6 +34,7 @@
 
           {% if request.user.is_authenticated %}
           <ul class="nav navbar-nav navbar-right">
+            <li><a href=""><em>Signed in as {{user.profile.position}}</em></a></li>
             <form class="navbar-form navbar-right" method="POST", action="{% url 'django.contrib.auth.views.logout' %}?next={% url 'index_view' %}">{% csrf_token %}
               <button type="submit" class="btn btn-default">Logout as {{user}}</button>
             </form>
@@ -41,7 +42,6 @@
 
           {% else %}
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'create_user_view' %}">Register</a></li>
             <form class="navbar-form navbar-right" method="POST", action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
               <div class="form-group">
                 <input type="text" class="form-control" name='username' placeholder="Username">
@@ -51,6 +51,8 @@
               </div>
               <button type="submit" class="btn btn-default">Login</button>
             </form>
+            <li><a href="{% url 'create_user_view' %}">Register</a></li>
+
           </ul>
           {% endif %}
 
@@ -66,8 +68,6 @@
 
            {% endblock %}
     </div>
-     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-     <script type="text/javascript" src="{% static "app/materialize/js/materialize.js" %}"></script>
-     <script type="text/javascript" src="{% static "app/main.js" %}"></script>
+     
   </body>
 </html>
