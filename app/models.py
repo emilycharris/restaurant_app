@@ -39,6 +39,7 @@ class Menu(models.Model):
         if self.photo:
             return self.photo.url
 
+
 class Order(models.Model):
     server = models.ForeignKey('auth.User')
     created = created = models.DateTimeField(auto_now_add=True)

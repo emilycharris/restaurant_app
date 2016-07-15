@@ -19,6 +19,9 @@ from app.views import (IndexView, CreateUserView, ProfileUpdateView, MenuItemCre
 MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView,
 OrderCreateView, OrderListView, ItemsListView)
 from django.contrib.auth.decorators import login_required
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -36,4 +39,4 @@ urlpatterns = [
     url(r'^items_list/(?P<pk>\d+)/$', login_required(ItemsListView.as_view()), name='items_list_view'),
 
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
