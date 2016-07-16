@@ -4,7 +4,7 @@
 {% block content %}
 {% if user.profile.position.id = 3 %}
 
-<strong><h4>Create New Menu Item: </h4></strong><hr>
+<strong><h4>Create/Update Menu Item: </h4></strong><hr>
 
   <form class="" action="" method="post" enctype=multipart/form-data>
     {% csrf_token %}
@@ -37,7 +37,8 @@
       <div class="form-group">
         {{form.errors}}
       </div>
-      <button type="submit" class="btn btn-default">Create Menu Item</button>
+      <button type="submit" class="btn btn-primary">Submit Menu Item</button>
+      <a class="btn btn-danger" href="{% url 'menu_item_delete_view' object.pk %}" role="button" style="float:right">Delete Menu Item</a>
 
   </form>
   {% else %}

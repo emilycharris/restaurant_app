@@ -2,7 +2,12 @@
 
 {% block content %}
 {% if user.profile.position.id = 3 %}
-<strong><h4>Menu Items: </h4></strong><hr>
+<div class="row">
+  <div class="col-md-6"><strong><h3>Menu Items: </h3></strong></div>
+  <div class="col-md-6"><a class="btn btn-primary btn-lg" href="{% url 'menu_item_create_view' %}" role="button" style="float:right">Create New Menu Item</a></div>
+</div>
+
+<hr>
 
 
 {% for category in object_list %}
@@ -12,7 +17,7 @@
   <ul>
     <div class="media">
       <div class="media-left">
-        <a href="{% url 'menu_item_detail_view' item.pk %}">
+        <a href="{% url 'menu_item_update_view' item.pk %}">
           <img class="media-object" src={{photo_url}} alt="" width="32" height="32">
         </a>
       </div>
@@ -37,7 +42,6 @@
 
 
 
-<a class="btn btn-default btn-lg" href="{% url 'menu_item_create_view' %}" role="button">Create New Menu Item</a>
 
 {% else %}
 <h3><em>You don't have permission to view this page.</em></h3>

@@ -32,7 +32,7 @@ class ProfileUpdateView(UpdateView):
 class MenuItemCreateView(CreateView):
     model = Menu
     fields = ['item', 'description', 'category', 'price', 'photo']
-    success_url = reverse_lazy('profile_update_view')
+    success_url = reverse_lazy('menu_item_list_view')
 
     def form_valid(self, form):
         item = form.save(commit=False)
