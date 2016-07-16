@@ -1,34 +1,38 @@
 {% extends "base.html" %}
-
 {% block content %}
-{% for object in object_list %}
-<ul class="collection">
-<table>
-  <tr>
-<td>
-  <a href="{% url 'items_list_view' object.pk %}">Order # {{object.id}}</a>
-  <div>
-    <small><em>Server: {{object.server}}</em></small>
-  </div>
-  <div>
-    <small><em>Timestamp: {{object.created}}</em></small>
-  </div>
-</td>
 
-    <td>
-      <form action="#" style='float:right'>
-        <p>
-          <input type="checkbox" id="test5" />
-          <label for="test5">Complete</label>
-        </p>
-        </form>
-    </td>
+
+<table class='table'>
+  <tr>
+    <th>Order #</th>
+    <th>Server</th>
+    <th>Timestamp</th>
+    <th style='width:100%; float:right'></th>
 
   </tr>
-</table>
-</ul>
 
-{% endfor %}
+{% for object in object_list %}
+<tbody>
+    <tr>
+  <td>Order # {{object.id}}</td>
+  <td><em>{{object.server}}</em></td>
+  <td><em>{{object.created}}</em></td>
+  {% if user.profile.position.id = 2 %}
+  {# cook#}
+  <td><a type="submit" style='float:right' class="btn btn-primary" href="{% url 'items_list_view' object.pk %}">Order Details</a></td>
+  {% endif %}
+
+  {% if user.profile.position.id = 1 %}
+  {# server#}
+  <td><a type="submit" style='float:right' class="btn btn-primary" href="{% url 'items_list_view' object.pk %}">View Receipt</a></td>
+  {% endif %}
+
+    </tr>
+  </tbody>
+  {% endfor %}
+
+</table>
+
 
 
 {% endblock %}

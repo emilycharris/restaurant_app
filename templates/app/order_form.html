@@ -1,26 +1,29 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap %}
+
 {% block content %}
-{# {% if user.profile.position.id = 1 %}#}
-  <form class="form-inline" action="" method="post">
+{% if user.profile.position.id = 1 %}
+
+<strong><h4>Create Order: </h4></strong>
+
+  <form class="" action="" method="post" enctype=multipart/form-data>
     {% csrf_token %}
-<table>
-  <tr>
-    <th>Item</th>
-    <th>Quantity</th>
-    <th>Notes</th>
-  </tr>
-  {% for formset in inlines %}
 
-  <tr>
-    {{formset.as_table}}
-  </tr>
 
-    {% endfor %}
-</table>
-    {{form.as_table}}
-<br>
-    <button class="btn waves-effect waves-light red accent-2"  type="submit" name="action">Submit
-    </button>
+    <table>
+           {% for form in inlines %}
+               <tr>{{ form|bootstrap }}</tr>
+           {% endfor %}
+       </table>
+
+
+    <button type="submit" class="btn btn-primary">Submit Order</button>
+
+
+
   </form>
-  {# {% endif %}#}
+  {% endif %}
+
+
 {% endblock %}

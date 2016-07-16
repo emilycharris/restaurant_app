@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load widget_tweaks %}
+{% load bootstrap %}
 
 {% block content %}
 {% if user.profile.position.id = 3 %}
@@ -9,37 +9,15 @@
   <form class="" action="" method="post" enctype=multipart/form-data>
     {% csrf_token %}
 
-      <div class="form-group">
-        <label for="item_name">Item Name</label>
-        {{ form.item|add_class:"form-control" }}
-      </div>
-
-      <div class="form-group">
-        <label for="description">Description</label>
-        {{ form.description|add_class:"form-control" }}
-      </div>
-
-      <div class="form-group">
-        <label for="category">Category</label>
-        {{ form.category|add_class:"form-control" }}
-      </div>
-
-      <div class="form-group">
-        <label for="price">Price</label>
-        {{ form.price|add_class:"form-control" }}
-      </div>
-
-      <div class="form-group">
-        <label for="photo_upload">Photo Upload</label>
-        {{ form.photo|add_class:"form-control" }}
-      </div>
+    {{form|bootstrap}}
 
       <div class="form-group">
         {{form.errors}}
       </div>
       <button type="submit" class="btn btn-primary">Submit Menu Item</button>
+      {% if object.pk %}
       <a class="btn btn-danger" href="{% url 'menu_item_delete_view' object.pk %}" role="button" style="float:right">Delete Menu Item</a>
-
+      {% endif %}
   </form>
   {% else %}
   <h3><em>You don't have permission to view this page.</em></h3>

@@ -1,0 +1,4 @@
+django
+django-extra-views
+Pillow
+django-bootstrap-form

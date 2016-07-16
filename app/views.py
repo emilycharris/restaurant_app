@@ -101,7 +101,11 @@ class OrderListView(ListView):
     template_name = 'app/order_list.html'
 
     def get_queryset(self):
-        return Order.objects.filter(fulfilled=False).order_by('-created')
+        if self.request.user.profile.position.id == 2:
+            return Order.objects.filter(fulfilled=False).order_by('created')
+        if self.request.user.profile.position.id == 1:
+            return Order.objects.filter(paid=False).order_by('created')
+
 
 
 

@@ -19,22 +19,21 @@
 {% else %}
 
 {% if profile.position.id = 3 %}
+{# Owner#}
 <a class="btn btn-default btn-lg" href="{% url 'menu_item_create_view' %}" role="button">Create Menu Item</a>
-
 <a class="btn btn-default btn-lg" href="{% url 'menu_item_list_view' %}" role="button">List Menu Items</a>
-
-
-    <a href="{% url 'order_create_view' %}">Create Order</a>
 {% endif %}
 
 {% if profile.position.id = 2 %}
-<a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'order_list_view' %}">Pending Orders</a>
+{# Cook#}
+<a class="btn btn-default btn-lg" href="{% url 'order_list_view' %}" role="button">Pending Orders</a>
 {% endif %}
 
-{% if profile.position.id = 1 %}Server
-<a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'order_create_view' %}">Create Order</a>
+{% if profile.position.id = 1 %}
+{# Server#}
+<a class="btn btn-default btn-lg" href="{% url 'order_create_view' %}" role="button">Create Order</a>
+<a class="btn btn-default btn-lg" href="{% url 'order_list_view' %}" role="button">Unpaid Orders</a>
 
-Create Order / Mark Table as Paid
 {% endif %}
 {% endif %}
 
