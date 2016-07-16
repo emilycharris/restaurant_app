@@ -59,7 +59,7 @@ class MenuItemDetailView(DetailView):
 class MenuItemUpdateView(UpdateView):
     model = Menu
     fields = ['item', 'description', 'category', 'price', 'photo']
-    success_url = reverse_lazy('profile_update_view')
+    success_url = reverse_lazy('menu_item_list_view')
 
     def get_queryset(self, **kwargs):
         item_id = self.kwargs.get('pk')
