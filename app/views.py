@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.contrib.auth.models import User
-from app.models import Profile, Order, Menu, Items
+from app.models import Profile, Order, Menu, Items, Category
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
@@ -40,11 +40,12 @@ class MenuItemCreateView(CreateView):
         return super().form_valid(form)
 
 class MenuItemListView(ListView):
-    model = Menu
+    model = Category
     template_name = 'app/menu_list.html'
 
     def get_queryset(self):
-        return Menu.objects.all().order_by('category')
+        category = Category.objects.all()
+        return category
 
 
 class MenuItemDetailView(DetailView):

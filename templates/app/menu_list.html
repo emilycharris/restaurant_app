@@ -1,25 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a class="waves-effect waves-light red accent-2 btn-large" href="{% url 'menu_item_create_view' %}">Create New Menu Item</a>
+{% if user.profile.position.id = 3 %}
+<strong><h4>Menu Items: </h4></strong><hr>
 
-{% for object in object_list %}
-<ul class="collection">
-<table>
-  <tr>
-<td>
-  <li class="collection-item"><a href="{% url 'menu_item_detail_view' object.pk %}">{{object.item}}</a></li>
-</td>
-<td style='float:right'>
-  <a href="{% url 'menu_item_update_view' object.pk %}">edit</a> / <a href="{% url 'menu_item_delete_view' object.pk %}">delete</a>
 
-</td>
-  </tr>
-</table>
+{% for category in object_list %}
+<ul>
+  <h4>{{category.category}}</h4>
+  {% for item in category.menu_set.all %}
+  <ul>
+    <div class="media">
+      <div class="media-left">
+        <a href="{% url 'menu_item_detail_view' item.pk %}">
+          <img class="media-object" src={{photo_url}} alt="" width="32" height="32">
+        </a>
+      </div>
+      <div class="media-body">
+        <table class='table'>
+          <tr>
+            <div class="media-body">
+            <td><h4 class="media-heading" id='inline'>{{item.item}}</h4></td>
+            <td>  <h4 class='media-heading' id='inline' style="float:right">${{item.price}}</h4></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </ul>
 
+  {% endfor %}
 </ul>
+
 
 {% endfor %}
 
+
+
+
+<a class="btn btn-default btn-lg" href="{% url 'menu_item_create_view' %}" role="button">Create New Menu Item</a>
+
+{% else %}
+<h3><em>You don't have permission to view this page.</em></h3>
+{% endif %}
 
 {% endblock %}
