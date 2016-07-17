@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if user.profile.position.id = 3 %}
   <form class="" action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" class="btn btn-danger" name="submit" value="Confirm Delete">
   </form>
+{% else %}
+<h3><em>You don't have permission to view this page.</em></h3>
+{% endif %}
+<br>
+<a href="javascript:history.go(-1)"><em>Return to Previous Page</em></a>
+
 {% endblock %}

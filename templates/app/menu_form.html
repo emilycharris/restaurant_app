@@ -19,10 +19,16 @@
       <a class="btn btn-danger" href="{% url 'menu_item_delete_view' object.pk %}" role="button" style="float:right">Delete Menu Item</a>
       {% endif %}
   </form>
+  <br>
+  <a href={% url 'menu_item_list_view' %}><em>Return to Menu List Without Change</em></a>
+
+
+
   {% else %}
   <h3><em>You don't have permission to view this page.</em></h3>
-  {% endif %}
   <br>
-  <a href="javascript:history.go(-1)"><em>Return to Menu List Without Change</em></a>
+  <a href="javascript:history.go(-1)"><em>Return to Previous Page</em></a>
+
+  {% endif %}
 
 {% endblock %}
