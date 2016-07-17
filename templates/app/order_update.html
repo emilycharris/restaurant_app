@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block content %}
+<h4>Order #  {{order.id}}:</h4>
+<hr>
+
+<form class="" action="" method="post">
+  {% csrf_token %}
+  {% if user.profile.position.id = 2 %}
+  <input type="checkbox" id="fulfilled" name="fulfilled" value="Fulfilled" style="display:none">
+  <button class="btn btn-primary btn-lg" onclick="document.getElementById('fulfilled').checked=!document.getElementById('fulfilled').checked;">Fulfilled</button>
+  {% endif %}
+
+  {% if user.profile.position.id = 1 %}
+  <input type="checkbox" id="paid" name="paid" value="paid" style="display:none">
+  <button class="btn btn-primary btn-lg" onclick="document.getElementById('paid').checked=!document.getElementById('paid').checked;">Paid</button>
+  {% endif %}
+</form>
+
+<table>
+  <tr>
+    <th></th>
+  </tr>
+  <tbody>
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<a href="javascript:history.go(-1)">Back to List</a>
+
+
+{% endblock %}

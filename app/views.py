@@ -107,12 +107,27 @@ class OrderListView(ListView):
             return Order.objects.filter(paid=False).order_by('created')
 
 
+class OrderUpdateView(UpdateWithInlinesView):
+    model = Order
+    fields = ['paid', 'fulfilled']
+    template_name = 'app/order_update.html'
+    success_url = reverse_lazy('order_list_view')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['order'] = Order.objects.get(id=pk)
+        items = Items.objects.filter(order_id=pk)
 
-class ItemsListView(ListView):
-    model = Items
-    template_name = 'app/items_list.html'
+        tax_rate = 0.08
+        total = 0
+        tax_total = total * tax_rate
 
-    def get_queryset(self, **kwargs):
-        order_id = self.kwargs.get('pk')
-        return Items.objects.filter(order_id=order_id)
+        for item in items:
+            total += item.item.price * item.quantity
+
+        context['items'] = items
+        context['tax_rate'] = tax_rate
+        context['tax_total'] = tax_total
+        context['total'] = total
+        return context

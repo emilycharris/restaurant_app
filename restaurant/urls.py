@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from app.views import (IndexView, CreateUserView, ProfileUpdateView, MenuItemCreateView,
 MenuItemListView, MenuItemUpdateView, MenuItemDetailView, MenuItemDeleteView,
-OrderCreateView, OrderListView, ItemsListView)
+OrderCreateView, OrderListView, OrderUpdateView)
 from django.contrib.auth.decorators import login_required
 from django.conf.urls.static import static
 from django.conf import settings
@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^delete_menu_item/(?P<pk>\d+)/$', login_required(MenuItemDeleteView.as_view()), name='menu_item_delete_view'),
     url(r'^order_create/$', login_required(OrderCreateView.as_view()), name='order_create_view'),
     url(r'^order_list', login_required(OrderListView.as_view()), name='order_list_view'),
-    url(r'^items_list/(?P<pk>\d+)/$', login_required(ItemsListView.as_view()), name='items_list_view'),
+    url(r'^order_update/(?P<pk>\d+)/$', login_required(OrderUpdateView.as_view()), name='order_update_view'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
