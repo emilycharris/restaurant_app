@@ -10,6 +10,7 @@ from django.shortcuts import render_to_response
 from django.core.urlresolvers import reverse
 from extra_views import InlineFormSet, CreateWithInlinesView, UpdateWithInlinesView
 from extra_views.generic import GenericInlineFormSet
+from decimal import *
 
 # Create your views here.
 
@@ -120,14 +121,23 @@ class OrderUpdateView(UpdateWithInlinesView):
         items = Items.objects.filter(order_id=pk)
 
         tax_rate = 0.08
-        total = 0
-        tax_total = total * tax_rate
+        tax_rate_for_total = 1.08
+        subtotal = 0
+        tax_total = 0
+        grand_total = 0
+
 
         for item in items:
-            total += item.item.price * item.quantity
+            subtotal += (item.item.price * item.quantity)
+            item_tax = round(Decimal(item.item.price * item.quantity) * Decimal(tax_rate),2)
+            tax_total += item_tax
+            item_total = round(Decimal(item.item.price * item.quantity) + Decimal(item_tax),2)
+            grand_total += item_total
 
         context['items'] = items
         context['tax_rate'] = tax_rate
         context['tax_total'] = tax_total
-        context['total'] = total
+        context['tax_rate_for_total'] = tax_rate_for_total
+        context['subtotal'] = subtotal
+        context['grand_total'] = grand_total
         return context

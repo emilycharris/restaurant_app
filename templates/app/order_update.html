@@ -1,34 +1,70 @@
 {% extends "base.html" %}
 {% load bootstrap %}
+{% load mathfilters %}
 
 {% block content %}
-<h4>Order #  {{order.id}}:</h4>
+<h3>Order #  {{order.id}}:</h3>
 <hr>
 
 <form class="" action="" method="post">
   {% csrf_token %}
   {% if user.profile.position.id = 2 %}
+  {# cook#}
   <input type="checkbox" id="fulfilled" name="fulfilled" value="Fulfilled" style="display:none">
-  <button class="btn btn-primary btn-lg" onclick="document.getElementById('fulfilled').checked=!document.getElementById('fulfilled').checked;">Fulfilled</button>
+  <button class="btn btn-primary btn-lg" onclick="document.getElementById('fulfilled').checked=!document.getElementById('fulfilled').checked;">Mark as Fulfilled</button>
+
+</form>
+<br><br>
+<table class='table'>
+  <tr>
+    <th><h4>Item</h4></th>
+    <th><h4>Quantity</h4></th>
+    <th><h4>Notes</h4></th>
+  </tr>
+  <tbody>
+    {% for item in items %}
+      <tr>
+        <td><h4>{{item.item}}</h4></td>
+        <td><h4>{{item.quantity}}</h4></td>
+        <td><h4>{{item.notes}}</h4></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
   {% endif %}
 
   {% if user.profile.position.id = 1 %}
+  {# server#}
   <input type="checkbox" id="paid" name="paid" value="paid" style="display:none">
-  <button class="btn btn-primary btn-lg" onclick="document.getElementById('paid').checked=!document.getElementById('paid').checked;">Paid</button>
-  {% endif %}
-</form>
+  <button class="btn btn-primary btn-lg" onclick="document.getElementById('paid').checked=!document.getElementById('paid').checked;">Mark as Paid</button>
 
-<table>
+</form>
+<br><br>
+<table class='table'>
   <tr>
-    <th></th>
+    <th><h4>Item</h4></th>
+    <th><h4>Quantity</h4></th>
+    <th><h4>Price</h4></th>
+    <th id='extended'><h4>Extended</h4></th>
   </tr>
   <tbody>
-    <tr>
-      <td></td>
-    </tr>
+    {% for item in items %}
+      <tr>
+        <td><h4>{{item.item}}</h4></td>
+        <td><h4>{{item.quantity}}</h4></td>
+        <td><h4>{{item.item.price}}</h4></td>
+        <td><h4>{{item.item.price|mul:item.quantity}}</h4></td>
+
+      </tr>
+    {% endfor %}
   </tbody>
 </table>
+<hr>
+<div style="float:right"><h4>Subtotal: {{subtotal}}</h4></div><br><br>
+<div style="float:right"><h4>Tax: {{tax_total}}</h4></div><br><br>
+<div style="float:right"><h4>Grand Total: {{grand_total}}</h4></div><br><br>
 
+{% endif %}
 
 
 <a href="javascript:history.go(-1)">Back to List</a>
