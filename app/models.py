@@ -42,7 +42,7 @@ class Menu(models.Model):
 
 class Order(models.Model):
     server = models.ForeignKey('auth.User')
-    created = created = models.DateTimeField(auto_now_add=True)
+    created = models.DateTimeField(auto_now_add=True)
     fulfilled = models.BooleanField(default=False)
     paid = models.BooleanField(default=False)
 
